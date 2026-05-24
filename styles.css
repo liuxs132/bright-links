@@ -281,6 +281,15 @@ h2 {
     box-shadow 90ms ease;
 }
 
+.danger {
+  border-color: rgba(211, 70, 70, 0.55);
+  color: #b33232;
+}
+
+.danger:hover:not(:disabled) {
+  border-color: rgba(211, 70, 70, 0.85);
+}
+
 .primary {
   background: #172033;
   color: #fff;

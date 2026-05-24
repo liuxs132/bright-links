@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bright Links</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app" aria-live="polite">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Bright Links</p>
+          <h1>Find the four hidden sets.</h1>
+        </div>
+        <button class="icon-button" id="shuffleButton" type="button" aria-label="Shuffle board" title="Shuffle">
+          Shuffle
+        </button>
+      </header>
+
+      <section class="daily-strip" aria-label="Daily progress">
+        <div>
+          <span id="puzzleLabel">Daily #1</span>
+          <strong id="dateLabel">Today</strong>
+        </div>
+        <div>
+          <span>Current streak</span>
+          <strong id="streakCount">0</strong>
+        </div>
+      </section>
+
+      <section class="status-strip">
+        <div class="counter">
+          <span>Mistakes left</span>
+          <strong id="mistakesLeft">4</strong>
+        </div>
+        <div class="counter">
+          <span>Sets solved</span>
+          <strong id="solvedCount">0/4</strong>
+        </div>
+      </section>
+
+      <section class="solved-list" id="solvedList" aria-label="Solved groups"></section>
+
+      <section class="board" id="board" aria-label="Word board"></section>
+
+      <section class="actions">
+        <button class="primary" id="submitButton" type="button" disabled>Submit</button>
+        <button class="secondary" id="clearButton" type="button" disabled>Clear</button>
+        <button class="secondary" id="newGameButton" type="button">Practice</button>
+      </section>
+
+      <p class="message" id="message">Select four words that belong together.</p>
+
+      <form
+        class="signup"
+        id="signupForm"
+        method="POST"
+        action="/api/subscribe"
+        accept-charset="UTF-8"
+      >
+        <label for="emailInput">Get tomorrow's puzzle</label>
+        <div>
+          <input id="emailInput" name="email" type="email" placeholder="you@example.com" autocomplete="email" />
+          <button class="secondary" type="submit">Join</button>
+        </div>
+        <p id="signupMessage">Early list only. No spam, no noise.</p>
+      </form>
+    </main>
+
+    <dialog class="result-dialog" id="resultDialog">
+      <div class="dialog-body">
+        <p class="eyebrow" id="resultKicker">Complete</p>
+        <h2 id="resultTitle">Clean solve.</h2>
+        <p id="resultCopy"></p>
+        <div class="answer-list" id="answerList"></div>
+        <div class="dialog-actions">
+          <button class="primary" id="copyButton" type="button">Copy result</button>
+          <button class="secondary" id="closeDialogButton" type="button">Close</button>
+        </div>
+      </div>
+    </dialog>
+
+    <script src="game.js"></script>
+  </body>
+</html>

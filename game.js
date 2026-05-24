@@ -60,6 +60,7 @@ const dateLabel = document.querySelector("#dateLabel");
 const streakCount = document.querySelector("#streakCount");
 const submitButton = document.querySelector("#submitButton");
 const clearButton = document.querySelector("#clearButton");
+const revealButton = document.querySelector("#revealButton");
 const shuffleButton = document.querySelector("#shuffleButton");
 const newGameButton = document.querySelector("#newGameButton");
 const message = document.querySelector("#message");
@@ -255,6 +256,7 @@ function render() {
   submitButton.disabled = selected.size !== 4 || locked;
   clearButton.disabled = selected.size === 0 || locked;
   shuffleButton.disabled = locked || remainingTiles.length <= 4;
+  revealButton.disabled = locked;
 }
 
 function setMessage(text, tone = "") {
@@ -354,6 +356,16 @@ function finishGame(won) {
   resultDialog.showModal();
 }
 
+function revealAnswers() {
+  if (locked) return;
+  playSound("bad");
+  setMessage("Revealed. No shame in scouting the board.", "bad");
+  selected.clear();
+  locked = true;
+  track("puzzle_revealed", { id: activePuzzle.id, mode: isDailyMode ? "daily" : "practice" });
+  finishGame(false);
+}
+
 function copyResult() {
   const colorMap = new Map([
     ["var(--yellow)", "[Y]"],
@@ -361,9 +373,13 @@ function copyResult() {
     ["var(--blue)", "[B]"],
     ["var(--pink)", "[P]"],
   ]);
+  const scoreLine = isDailyMode
+    ? `Daily #${activeDayNumber} ${solvedGroups.length}/4`
+    : `Practice #${activeDayNumber} ${solvedGroups.length}/4`;
   const result = [
     "Bright Links",
-    `${resultPuzzleName()} ${solvedGroups.length}/4`,
+    scoreLine,
+    `Mistakes: ${mistakes}/${MAX_MISTAKES}`,
     `Streak: ${loadStats().streak ?? 0}`,
     ...history.map((color) => (color === "#d34646" ? "[X]" : colorMap.get(color) ?? "[G]")),
     "Play today's puzzle:",
@@ -410,6 +426,7 @@ closeDialogButton.addEventListener("click", () => {
   playSound("tap");
   resultDialog.close();
 });
+revealButton.addEventListener("click", revealAnswers);
 signupForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const email = emailInput.value.trim();

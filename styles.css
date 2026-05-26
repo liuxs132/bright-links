@@ -482,3 +482,34 @@ h2 {
     grid-template-columns: 1fr;
   }
 }
+.buy-row {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.buy-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  text-decoration: none;
+  background: #111827;
+  color: #ffffff;
+  border: 1px solid rgba(17, 24, 39, 0.15);
+  box-shadow: 0 6px 16px rgba(17, 24, 39, 0.12);
+}
+
+.buy-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(17, 24, 39, 0.16);
+}
+
+.buy-note {
+  font-size: 12px;
+  color: rgba(17, 24, 39, 0.65);
+}
